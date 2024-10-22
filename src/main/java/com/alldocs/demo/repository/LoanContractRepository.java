@@ -1,12 +1,9 @@
-package com.alldocs.demo.document;
+package com.alldocs.demo.repository;
 
+import com.alldocs.demo.model.LoanContract;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
+@Repository
 public interface LoanContractRepository extends MongoRepository<LoanContract, String> {
-    // 사용자별 문서 조회
-    List<LoanContract> findByUserId(String userId);
 }
-
-

@@ -1,8 +1,9 @@
-package com.alldocs.demo.user;
+package com.alldocs.demo.model;
 
-import com.alldocs.demo.document.LoanContract;
+import com.alldocs.demo.model.LoanContract;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.util.List;
 
@@ -10,24 +11,28 @@ import java.util.List;
 public class User {
 
     @Id
-    private String id;  // MongoDB에서 사용되는 기본 키 (카카오 ID로 사용할 수도 있음)
-    private String kakaoId;
-    private String name;
-    private String email;
+    private String id;
 
-    // 사용자가 소유한 문서 (LoanContract) 리스트
+    private String nickname;
+    private String email;
+    private String password;
+
+    // User가 여러 LoanContract를 가질 수 있음 (1:N 관계)
+    @DBRef
     private List<LoanContract> loanContracts;
 
-    // 생성자, 게터/세터
+    // Constructors, Getters, Setters
+
     public User() {}
 
-    public User(String kakaoId, String name, String email) {
-        this.kakaoId = kakaoId;
-        this.name = name;
+    public User(String nickname, String email, String password) {
+        this.nickname = nickname;
         this.email = email;
+        this.password = password;
     }
 
     // Getters and Setters
+
     public String getId() {
         return id;
     }
@@ -36,20 +41,12 @@ public class User {
         this.id = id;
     }
 
-    public String getKakaoId() {
-        return kakaoId;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setKakaoId(String kakaoId) {
-        this.kakaoId = kakaoId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getEmail() {
@@ -58,6 +55,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<LoanContract> getLoanContracts() {
